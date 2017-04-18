@@ -1,4 +1,5 @@
 # Kenomo Ad Blocker
+![2017-04-19 12 06 03](https://cloud.githubusercontent.com/assets/4176802/25141481/42e79ac4-2496-11e7-9822-f277378b5c9a.png)
 
 This extension is a perceptual ad blocker which replace advertisements with Kenomo Friends pictures on
 Facebook and Adchoices advertisements across the web.
