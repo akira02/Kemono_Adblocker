@@ -74,7 +74,6 @@ function coverContainer(container, coverText, matchingText, deepestOnly, isAd, h
         setHeight = "100%"
     }
 
-    // create the cover to prepend.
     //Kemono images
     var imageSrcs = [
         "https://pbs.twimg.com/media/C46fOL7VcAAM4H-.jpg",
@@ -101,8 +100,9 @@ function coverContainer(container, coverText, matchingText, deepestOnly, isAd, h
         "https://pbs.twimg.com/media/C2h5XxQUQAALHkl.jpg"
     ];
     imgSrc = imageSrcs[Math.floor(Math.random() * imageSrcs.length)]
+
+    // create the cover to prepend.
     var prepend = "<div class=\"" + classes + "\" style=\"height: " + setHeight + ";position: absolute;width: 100%;background-color: " + color + " !important; opacity: 0.9; background-image: url(" + imgSrc + "); background-position: center; background-size:cover; z-index: 100; visibility: visible;\">";
-    //kemono_field_end
     prepend += "<div class=\"PAB_closeButton\" style=\"position: absolute; right: 5px; top: 5px; cursor: pointer; padding: 0px 3px; border: 1px solid black; border-radius: 5px;\">";
     prepend += "<strong>";
     prepend += "X";
@@ -110,18 +110,18 @@ function coverContainer(container, coverText, matchingText, deepestOnly, isAd, h
     prepend += "</div>";
     prepend += "<div style=\"width: 100%;text-align:center;\">";
     prepend += "<span style=\"color: black; font-size:60px;\">";
-    prepend += "わーい！廣告！";
-    //prepend += coverText;
+    prepend += coverText;
+    prepend += "</span>";
+    // if we have "Sponsored" text in another language, add it below "THIS IS AN AD"
+    if (NON_ENGLISH_LOCALE && matchingText !== "") {
+        prepend += "<br/>"
+        prepend += "<span style=\"color: black; font-size:40px; background: rgba(255,255,255,.8);\">";
+        prepend += "(" + matchingText + ")";
+        prepend += "</span>";
+    }
     prepend += "</div>";
     prepend += "</div>";
     var myPrepend = prepend;
-
-    // if we only want the deepest, remove any above this
-    if (deepestOnly) {
-        container.parents().each(function(index) {
-            $(this).children(".PAB_adBlockerCover").remove();
-        });
-    }
     // if we only want the deepest, remove any above this
     if (deepestOnly) {
         container.parents().each(function(index) {
@@ -141,8 +141,22 @@ function coverContainer(container, coverText, matchingText, deepestOnly, isAd, h
         });
     }
 
+
     // if this is an ad and we have an interval, stop the search for ads.
     if (hasInterval && isAd) {
         clearInterval(intervalID);
     }
 }
+
+/******************************************************
+ ***** Demo of link clicking by x/y coordinate. This will work on a logged-in
+ ***** facebook.com page.
+ ***** The code clicks on the user's profile in the top bar.
+ */
+/*
+setTimeout(function() {
+
+    simulateClickByPoint(502,21);
+
+}, 5000);
+*/
