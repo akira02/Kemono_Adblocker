@@ -1,13 +1,13 @@
 // sets logging level
-var VERBOSE = false;
+var VERBOSE = false
 
 if (typeof NON_ENGLISH_LOCALE === 'undefined') {
-    var NON_ENGLISH_LOCALE = false;
+    var NON_ENGLISH_LOCALE = false
 }
 
 // return whether the container is already covered
 function alreadyCovered(container) {
-    return (container.find(".PAB_adBlockerCover").length > 0);
+    return (container.find(".KAB_adBlockerCover").length > 0)
 }
 
 // true if we want to overlay non-ads as well
@@ -19,9 +19,9 @@ var showNonAd = false;
 // icon has been added and it changed from non-ad to ad, we do want
 // to update.
 function alreadyCoveredSameType(container, newCoverIsAd) {
-    var alreadyCovered = (container.find(".PAB_adBlockerCover").length > 0);
-    var alreadyAd = (container.find(".PAB_isAnAd").length > 0)
-    return alreadyCovered && (alreadyAd || !newCoverIsAd);
+    var alreadyCovered = (container.find(".KAB_adBlockerCover").length > 0)
+    var alreadyAd = (container.find(".KAB_isAnAd").length > 0)
+    return alreadyCovered && (alreadyAd || !newCoverIsAd)
 }
 
 // Add a cover with "THIS IS AN AD" and the "Sponsored" text in the given
@@ -37,39 +37,39 @@ function alreadyCoveredSameType(container, newCoverIsAd) {
 function coverContainer(container, coverText, matchingText, deepestOnly, isAd, hasInterval, intervalID) {
     // if we aren't doing anything to non-ads and this isn't an ad, do nothing.
     if (!isAd && !showNonAd) {
-        return false;
+        return false
     }
 
     // don't cover if this container is already covered;
     if (alreadyCoveredSameType(container, false)) {
-        return false;
+        return false
     }
 
     // remove any existing covers (if we are moving from non-ad to ad)
-    container.find(".PAB_adBlockerCover").remove();
+    container.find(".KAB_adBlockerCover").remove()
 
     // vary the color and classes based on whether this is an ad or not.
-    var color;
-    var classes = "PAB_adBlockerCover";
+    var color
+    var classes = "KAB_adBlockerCover"
     if (isAd) {
         if (showNonAd) {
-            color = "rgba(255, 0, 0, 0.8)";
+            color = "rgba(255, 0, 0, 0.8)"
         } else {
-            color = "rgba(255, 255, 255, 0.8)";
+            color = "rgba(255, 255, 255, 0.8)"
         }
-        classes += " PAB_isAnAd";
+        classes += " KAB_isAnAd"
     } else {
-        color = "rgba(255, 255, 255, 0.8)";
+        color = "rgba(255, 255, 255, 0.8)"
     }
 
     // some google ads have a height of 0 and then everything in overflow,
     // so if that is the case set the height of the cover to be the overflow
     // height.
-    var setHeight;
-    var containerHeight = container.height();
-    var containerScrollHeight = container.prop('scrollHeight');
+    var setHeight
+    var containerHeight = container.height()
+    var containerScrollHeight = container.prop('scrollHeight')
     if (containerHeight == 0 && containerScrollHeight > 0) {
-        setHeight = containerScrollHeight + "px";
+        setHeight = containerScrollHeight + "px"
     } else {
         setHeight = "100%"
     }
@@ -102,61 +102,63 @@ function coverContainer(container, coverText, matchingText, deepestOnly, isAd, h
     imgSrc = imageSrcs[Math.floor(Math.random() * imageSrcs.length)]
 
     // create the cover to prepend.
-    var prepend = "<div class=\"" + classes + "\" style=\"height: " + setHeight + ";position: absolute;width: 100%;background-color: " + color + " !important; opacity: 0.9; background-image: url(" + imgSrc + "); background-position: center; background-size:cover; z-index: 100; visibility: visible;\">";
-    prepend += "<div class=\"PAB_closeButton\" style=\"position: absolute; right: 5px; top: 5px; cursor: pointer; padding: 0px 3px; border: 1px solid black; border-radius: 5px;\">";
-    prepend += "<strong>";
-    prepend += "X";
-    prepend += "</strong>";
-    prepend += "</div>";
-    prepend += "<div style=\"width: 100%;text-align:center;\">";
-    prepend += "<span style=\"color: black; font-size:60px;\">";
-    prepend += coverText;
-    prepend += "</span>";
-    // if we have "Sponsored" text in another language, add it below "THIS IS AN AD"
+    var prepend = "<div class=\"" + classes + "\" style=\"height: " + setHeight + ";position: absolute;width: 100%; color:white; background-color: " + color + " !important; opacity: 0.9; z-index: 100; visibility: visible; display:flex; display:flex; flex-direction:column; justify-content:center; align-items:center; flex-wrap:nowrap;\">"
+    prepend += "<div id=\"KAB_filter\" style=\"position: absolute;height:100%; width:100%; background-image: url(" + imgSrc + "); background-position: center; background-size:cover; background-color:rgba(0,0,0,0.3); display:flex;\">"
+    prepend += "</div>"
+    prepend += "<style>#KAB_filter{filter:brightness(0.5);} #KAB_filter:hover{opacity:0.7;filter:blur(7px) brightness(0.4);}</style>"
+    prepend += "<div class=\"KAB_closeButton\" style=\"position: absolute; right: 5px; top: 5px; cursor: pointer; padding: 0px 3px; border: 1px solid black; border-radius: 5px;\">"
+    prepend += "<strong>"
+    prepend += "X"
+    prepend += "</strong>"
+    prepend += "</div>"
+    prepend += "<div style=\"position: absolute; width: 100%; text-align:center;\">"
+    prepend += "<span style=\"font-size:40px;\">"
+    prepend += "わーい！廣告！"
+    prepend += "</span>"
+    prepend += "<br/>"
+        // if we have "Sponsored" text in another language, add it below "THIS IS AN AD"
     if (NON_ENGLISH_LOCALE && matchingText !== "") {
-        prepend += "<br/>"
-        prepend += "<span style=\"color: black; font-size:40px; background: rgba(255,255,255,.8);\">";
-        prepend += "(" + matchingText + ")";
-        prepend += "</span>";
+        if (matchingText == "贊助") {
+            prepend += "<br/>"
+            prepend += "<span style=\"font-size:60px; font-weight:bold; letter-spacing: 15px;\">"
+            prepend += "提供"
+            prepend += "</span>"
+            prepend += "<br/>"
+            prepend += "<span style=\"font-size:40px;\">"
+            prepend += "Facebook 粉絲專頁贊助"
+            prepend += "</span>"
+        } else {
+            prepend += "<br/>"
+            prepend += "<span style=\"font-size:40px; letter-spacing: 15px;\">"
+            prepend += matchingText
+            prepend += "</span>"
+        }
     }
-    prepend += "</div>";
-    prepend += "</div>";
-    var myPrepend = prepend;
-    // if we only want the deepest, remove any above this
+    prepend += "</div>"
+    prepend += "</div>"
+    var myPrepend = prepend
+        // if we only want the deepest, remove any above this
     if (deepestOnly) {
         container.parents().each(function(index) {
-            $(this).children(".PAB_adBlockerCover").remove();
-        });
+            $(this).children(".KAB_adBlockerCover").remove()
+        })
     }
     // if we only want the deepest covers and there is a cover within
     // this container already, don't ad this cover.
-    if (!deepestOnly || !(container.find(".PAB_adBlockerCover").length > 0)) {
+    if (!deepestOnly || !(container.find(".KAB_adBlockerCover").length > 0)) {
         // prepend the cover
-        container.css("position", "relative");
-        container.prepend(myPrepend);
+        container.css("position", "relative")
+        container.prepend(myPrepend)
 
         // make sure the close button closes the cover
-        container.children().children(".PAB_closeButton").on("click", function() {
-            container.children(".PAB_adBlockerCover").css("visibility", "hidden");
+        container.children().children(".KAB_closeButton").on("click", function() {
+            container.children(".KAB_adBlockerCover").css("visibility", "hidden")
         });
     }
 
 
     // if this is an ad and we have an interval, stop the search for ads.
     if (hasInterval && isAd) {
-        clearInterval(intervalID);
+        clearInterval(intervalID)
     }
 }
-
-/******************************************************
- ***** Demo of link clicking by x/y coordinate. This will work on a logged-in
- ***** facebook.com page.
- ***** The code clicks on the user's profile in the top bar.
- */
-/*
-setTimeout(function() {
-
-    simulateClickByPoint(502,21);
-
-}, 5000);
-*/
