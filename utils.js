@@ -57,7 +57,7 @@ function coverContainer(container, coverText, matchingText, deepestOnly, isAd, h
         } else {
             color = "rgba(255, 255, 255, 0.8)";
         }
-        classes += "PAB_isAnAd";
+        classes += " PAB_isAnAd";
     } else {
         color = "rgba(255, 255, 255, 0.8)";
     }
