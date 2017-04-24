@@ -124,7 +124,7 @@ function runImageSearch(container, resultFunction) {
       var data_string = wrapper_open + svg_html + wrapper_close;
 
       var img = new Image();
-      img.crossOrigin="CITPymous";
+      img.crossOrigin="Anonymous";
 
       var url = 'data:image/svg+xml;charset=utf8, ' + encodeURIComponent(data_string);
 

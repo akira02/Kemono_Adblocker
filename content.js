@@ -58,10 +58,11 @@ if (inIframe()) {
 
   intervalID = setInterval(function() {
       // Only consider the iframe if it is larger than 1x1
-      if (document.body.clientWidth > 1 || document.body.clientHeight > 1) {
+      // for now, disable this on youtube videos, which leads to a bug
+      if ((document.body.clientWidth > 1 || document.body.clientHeight > 1) && !(window.location.href.match(/^https:\/\/www\.youtube\.com\/embed/gi))) {
         // uncomment this for debugging to make sure that the container
         // with the adchoices icon has been examined at all.
-        //$('body').addClass("CITPObserved");
+        //$('body').addClass("BlockerObserved");
         runImageSearch($('body'), handleBkgdResponse);
       }
 

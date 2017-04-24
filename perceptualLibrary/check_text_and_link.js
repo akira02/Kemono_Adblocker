@@ -27,7 +27,7 @@ var COVER_TYPE = CONSTANTS.COVER.OR;
 function markContainer(container, marking) {
   var markString = "markedBy" + marking;
   container.addClass(markString);
-  container.addClass("FAHMarked");
+  container.addClass("PABMarked");
 }
 
 // select ads from a list of possible ads based on whether they have
@@ -65,6 +65,9 @@ function checkTextAndOrLink(possibleAds, deepestOnly, resultFunction, textMatche
 
           // if we are using the "or" method or testing, grab the href of this
           // link and if it results in the faebook ad page, cover the container.
+          // link checking removed for Chrome store version to allay
+          // concerns about click click pollution.
+          /*
           if ((COVER_TYPE == CONSTANTS.COVER.OR) || (COVER_TYPE == CONSTANTS.COVER.TEST)) {
             var href = $(this).attr("href");
             followSingleHref(href, function(result) {
@@ -77,7 +80,7 @@ function checkTextAndOrLink(possibleAds, deepestOnly, resultFunction, textMatche
                 }
               }
             });
-          }
+          }*/
           // if this link contains one of the sponsored text names, return
           // true that this is a "sponsored" link.
           // If we are in the "and" method or testing, check if the link results
@@ -86,6 +89,9 @@ function checkTextAndOrLink(possibleAds, deepestOnly, resultFunction, textMatche
             matchingText = fullText;
             if ((COVER_TYPE == CONSTANTS.COVER.AND) || (COVER_TYPE == CONSTANTS.COVER.TEST)) {
               var href = $(this).attr("href");
+              // link checking removed for Chrome store version to allay
+              // concerns about click click pollution.
+              /*
               followSingleHref(href, function(result) {
                 var includesSubstring = result.includes(hrefString);
                 if (includesSubstring) {
@@ -95,7 +101,7 @@ function checkTextAndOrLink(possibleAds, deepestOnly, resultFunction, textMatche
                     markContainer(me, CONSTANTS.COVER.AND)
                   }
                 }
-              });
+              });*/
             }
             return true;
           } else {

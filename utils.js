@@ -1,12 +1,3 @@
-/* ----------------------------------------------------------------------------------
- * Authors: Grant Storey & Dillon Reisman
- * Written: 3/5/17
- * Last Updated: 3/7/17
- * Description: Helper code for covering advertisements that have been found.
- * Dependencies: jquery.
- * ----------------------------------------------------------------------------------
- */
-
 // sets logging level
 var VERBOSE = false;
 
@@ -16,7 +7,7 @@ if (typeof NON_ENGLISH_LOCALE === 'undefined') {
 
 // return whether the container is already covered
 function alreadyCovered(container) {
-    return (container.find(".FAH_adBlockerCover").length > 0);
+    return (container.find(".PAB_adBlockerCover").length > 0);
 }
 
 // true if we want to overlay non-ads as well
@@ -28,8 +19,8 @@ var showNonAd = false;
 // icon has been added and it changed from non-ad to ad, we do want
 // to update.
 function alreadyCoveredSameType(container, newCoverIsAd) {
-    var alreadyCovered = (container.find(".CITP_adBlockerCover").length > 0);
-    var alreadyAd = (container.find(".CITP_isAnAd").length > 0)
+    var alreadyCovered = (container.find(".PAB_adBlockerCover").length > 0);
+    var alreadyAd = (container.find(".PAB_isAnAd").length > 0)
     return alreadyCovered && (alreadyAd || !newCoverIsAd);
 }
 
@@ -55,18 +46,18 @@ function coverContainer(container, coverText, matchingText, deepestOnly, isAd, h
     }
 
     // remove any existing covers (if we are moving from non-ad to ad)
-    container.find(".CITP_adBlockerCover").remove();
+    container.find(".PAB_adBlockerCover").remove();
 
     // vary the color and classes based on whether this is an ad or not.
     var color;
-    var classes = "CITP_adBlockerCover";
+    var classes = "PAB_adBlockerCover";
     if (isAd) {
         if (showNonAd) {
             color = "rgba(255, 0, 0, 0.8)";
         } else {
             color = "rgba(255, 255, 255, 0.8)";
         }
-        classes += " CITP_isAnAd";
+        classes += "PAB_isAnAd";
     } else {
         color = "rgba(255, 255, 255, 0.8)";
     }
@@ -78,13 +69,13 @@ function coverContainer(container, coverText, matchingText, deepestOnly, isAd, h
     var containerHeight = container.height();
     var containerScrollHeight = container.prop('scrollHeight');
     if (containerHeight == 0 && containerScrollHeight > 0) {
-        setHeight = containerScrollHeight;
+        setHeight = containerScrollHeight + "px";
     } else {
         setHeight = "100%"
     }
 
-
     // create the cover to prepend.
+    //Kemono images
     var imageSrcs = [
         "https://pbs.twimg.com/media/C46fOL7VcAAM4H-.jpg",
         "https://pbs.twimg.com/media/C5cdRXyUoAEQ8HK.jpg",
@@ -112,7 +103,7 @@ function coverContainer(container, coverText, matchingText, deepestOnly, isAd, h
     imgSrc = imageSrcs[Math.floor(Math.random() * imageSrcs.length)]
     var prepend = "<div class=\"" + classes + "\" style=\"height: " + setHeight + ";position: absolute;width: 100%;background-color: " + color + " !important; opacity: 0.9; background-image: url(" + imgSrc + "); background-position: center; background-size:cover; z-index: 100; visibility: visible;\">";
     //kemono_field_end
-    prepend += "<div class=\"FAH_closeButton\" style=\"position: absolute; right: 5px; top: 5px; cursor: pointer; padding: 0px 3px; border: 1px solid black; border-radius: 5px;\">";
+    prepend += "<div class=\"PAB_closeButton\" style=\"position: absolute; right: 5px; top: 5px; cursor: pointer; padding: 0px 3px; border: 1px solid black; border-radius: 5px;\">";
     prepend += "<strong>";
     prepend += "X";
     prepend += "</strong>";
@@ -121,14 +112,6 @@ function coverContainer(container, coverText, matchingText, deepestOnly, isAd, h
     prepend += "<span style=\"color: black; font-size:60px;\">";
     prepend += "わーい！廣告！";
     //prepend += coverText;
-    prepend += "</span>";
-    // if we have "Sponsored" text in another language, add it below "THIS IS AN AD"
-    if (NON_ENGLISH_LOCALE && matchingText !== "") {
-        prepend += "<br/>"
-        prepend += "<span style=\"color: black; font-size:40px; background: rgba(255,255,255,.8);\">";
-        prepend += "(" + matchingText + ")";
-        prepend += "</span>";
-    }
     prepend += "</div>";
     prepend += "</div>";
     var myPrepend = prepend;
@@ -136,38 +119,30 @@ function coverContainer(container, coverText, matchingText, deepestOnly, isAd, h
     // if we only want the deepest, remove any above this
     if (deepestOnly) {
         container.parents().each(function(index) {
-            $(this).children(".FAH_adBlockerCover").remove();
+            $(this).children(".PAB_adBlockerCover").remove();
+        });
+    }
+    // if we only want the deepest, remove any above this
+    if (deepestOnly) {
+        container.parents().each(function(index) {
+            $(this).children(".PAB_adBlockerCover").remove();
         });
     }
     // if we only want the deepest covers and there is a cover within
     // this container already, don't ad this cover.
-    if (!deepestOnly || !(container.find(".FAH_adBlockerCover").length > 0)) {
+    if (!deepestOnly || !(container.find(".PAB_adBlockerCover").length > 0)) {
         // prepend the cover
         container.css("position", "relative");
         container.prepend(myPrepend);
 
         // make sure the close button closes the cover
-        container.children().children(".FAH_closeButton").on("click", function() {
-            container.children(".FAH_adBlockerCover").css("visibility", "hidden");
+        container.children().children(".PAB_closeButton").on("click", function() {
+            container.children(".PAB_adBlockerCover").css("visibility", "hidden");
         });
     }
-
 
     // if this is an ad and we have an interval, stop the search for ads.
     if (hasInterval && isAd) {
         clearInterval(intervalID);
     }
 }
-
-/******************************************************
- ***** Demo of link clicking by x/y coordinate. This will work on a logged-in
- ***** facebook.com page.
- ***** The code clicks on the user's profile in the top bar.
- */
-/*
-setTimeout(function() {
-
-    simulateClickByPoint(502,21);
-
-}, 5000);
-*/

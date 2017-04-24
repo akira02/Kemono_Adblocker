@@ -173,7 +173,7 @@ chrome.runtime.onMessage.addListener(
             var OCR_LEN_MIN_THRESHOLD = 5;
             var OCR_LEN_MAX_THRESHOLD = 17;
             var img = new Image();
-            img.crossOrigin = 'CITPymous';
+            img.crossOrigin = 'Anonymous';
             img.element = request['data'][1];
             img.adchoice_samples = adchoices_hashes;
             img.ad_strings = ad_strings;
