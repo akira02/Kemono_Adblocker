@@ -1,7 +1,5 @@
 # Kenomo Ad Blocker
 
-![2017-04-19 12 06 03](https://cloud.githubusercontent.com/assets/4176802/25141481/42e79ac4-2496-11e7-9822-f277378b5c9a.png)
-
 ![2017-04-24 11 18 46](https://cloud.githubusercontent.com/assets/4176802/25344497/e3dd3cec-2944-11e7-91af-0266a32800b1.png)
 
 
@@ -46,6 +44,10 @@ To get this running from the source code on your local machine (Chrome only):
 - click the "Load unpacked extension..." button below the "Extensions" title
 - select the “perceptual-adblocker” folder from your filesystem
 - refresh any open Facebook pages
+
+# Old ver. screenshot
+
+![2017-04-19 12 06 03](https://cloud.githubusercontent.com/assets/4176802/25141481/42e79ac4-2496-11e7-9822-f277378b5c9a.png)
 
 
 ### License:
