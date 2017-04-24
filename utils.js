@@ -102,7 +102,7 @@ function coverContainer(container, coverText, matchingText, deepestOnly, isAd, h
     imgSrc = imageSrcs[Math.floor(Math.random() * imageSrcs.length)]
 
     // create the cover to prepend.
-    var prepend = "<div class=\"" + classes + "\" style=\"height: " + setHeight + ";position: absolute;width: 100%; color:white; background-color: " + color + " !important; opacity: 0.9; z-index: 100; visibility: visible; display:flex; display:flex; flex-direction:column; justify-content:center; align-items:center; flex-wrap:nowrap;\">"
+    var prepend = "<div class=\"" + classes + "\" style=\"height: " + setHeight + ";position: absolute;width: 100%; color:white; background-color: " + color + " !important; opacity: 0.9; z-index: 100; visibility: visible; display:flex; display:flex; flex-direction:column; justify-content:center; align-items:center; flex-wrap:nowrap; overflow: hidden; \">"
     prepend += "<div id=\"KAB_filter\" style=\"position: absolute;height:100%; width:100%; background-image: url(" + imgSrc + "); background-position: center; background-size:cover; background-color:rgba(0,0,0,0.3); display:flex;\">"
     prepend += "</div>"
     prepend += "<style>#KAB_filter{filter:brightness(0.5);} #KAB_filter:hover{opacity:0.7;filter:blur(7px) brightness(0.4);}</style>"
