@@ -102,17 +102,17 @@ function coverContainer(container, coverText, matchingText, deepestOnly, isAd, h
     imgSrc = imageSrcs[Math.floor(Math.random() * imageSrcs.length)]
 
     // create the cover to prepend.
-    var prepend = "<div class=\"" + classes + "\" style=\"height: " + setHeight + ";position: absolute;width: 100%; color:white; background-color: " + color + " !important; opacity: 0.9; z-index: 100; visibility: visible; display:flex; display:flex; flex-direction:column; justify-content:center; align-items:center; flex-wrap:nowrap; overflow: hidden; \">"
+    var prepend = "<div class=\"" + classes + "\" style=\"height: " + setHeight + ";position: absolute;width: 100%; color:white; background-color: " + color + " !important; opacity: 0.95; z-index: 100; visibility: visible; display:flex; display:flex; flex-direction:column; justify-content:center; align-items:center; flex-wrap:nowrap; overflow: hidden;\">"
     prepend += "<div id=\"KAB_filter\" style=\"position: absolute;height:100%; width:100%; background-image: url(" + imgSrc + "); background-position: center; background-size:cover; background-color:rgba(0,0,0,0.3); display:flex;\">"
     prepend += "</div>"
-    prepend += "<style>#KAB_filter{filter:brightness(0.5);} #KAB_filter:hover{opacity:0.7;filter:blur(7px) brightness(0.4);}</style>"
-    prepend += "<div class=\"KAB_closeButton\" style=\"position: absolute; right: 5px; top: 5px; cursor: pointer; padding: 0px 3px; border: 1px solid black; border-radius: 5px;\">"
+    prepend += "<style>#KAB_filter{filter:brightness(0.9);} #KAB_filter:hover{opacity:0.7;filter:blur(7px) brightness(0.4);}</style>"
+    prepend += "<div class=\"KAB_closeButton\" style=\"position: absolute; right: 5px; top: 5px; cursor: pointer; padding: 0px 3px; border: 1px solid black; border-radius: 5px\">"
     prepend += "<strong>"
     prepend += "X"
     prepend += "</strong>"
     prepend += "</div>"
     prepend += "<div style=\"position: absolute; width: 100%; text-align:center;\">"
-    prepend += "<span style=\"font-size:40px;\">"
+    prepend += "<span style=\"font-size:40px; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black !important;\">"
     prepend += "わーい！廣告！"
     prepend += "</span>"
     prepend += "<br/>"
@@ -120,16 +120,17 @@ function coverContainer(container, coverText, matchingText, deepestOnly, isAd, h
     if (NON_ENGLISH_LOCALE && matchingText !== "") {
         if (matchingText == "贊助") {
             prepend += "<br/>"
-            prepend += "<span style=\"font-size:60px; font-weight:bold; letter-spacing: 15px;\">"
+            prepend += "<span style=\"font-size:30px; font-weight:bold; letter-spacing: 30px; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black !important; \">"
             prepend += "提供"
             prepend += "</span>"
             prepend += "<br/>"
-            prepend += "<span style=\"font-size:40px;\">"
+            prepend += "<br/>"
+            prepend += "<span style=\"font-size:30px; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black !important; \">"
             prepend += "Facebook 粉絲專頁贊助"
             prepend += "</span>"
         } else {
             prepend += "<br/>"
-            prepend += "<span style=\"font-size:40px; letter-spacing: 15px;\">"
+            prepend += "<span style=\"font-size:40px; letter-spacing: 15px; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;\">"
             prepend += matchingText
             prepend += "</span>"
         }
